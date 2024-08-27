@@ -399,3 +399,7 @@ pre {
 .copyable {
   user-select: text;
 }
+
+div, button, select, a, input, span {
+  -webkit-tap-highlight-color: transparent;
+}

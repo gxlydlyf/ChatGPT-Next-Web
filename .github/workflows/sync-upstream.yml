@@ -16,7 +16,7 @@ jobs:
 
     steps:
       # 步骤 1：运行标准 checkout 操作
-      - name: checkout目标仓库
+      - name: 检出目标仓库
         uses: actions/checkout@v3
 
       # 第 2 步：运行 sync 操作

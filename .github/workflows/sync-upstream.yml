@@ -40,7 +40,10 @@ jobs:
       # 第 4 步：添加自己的代码更改
       - name: Add custom changes
         run: |
-          # 在这里添加你的代码更改，比如创建一个新文件或修改现有文件
+          # 设置 Git 用户信息
+          git config --global user.email "mail@9lf.top"
+          git config --global user.name "gxlydlyf"
+          
           # 更改CSS
           echo "
           div, button, select, a, input, span {

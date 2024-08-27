@@ -10,17 +10,17 @@ on:
 
 jobs:
   sync_latest_from_upstream:
-    name: Sync latest commits from upstream repo
+    name: 同步来自上游存储库的最新提交
     runs-on: ubuntu-latest
     if: ${{ github.event.repository.fork }}
 
     steps:
       # 步骤 1：运行标准 checkout 操作
-      - name: Checkout target repo
+      - name: checkout目标仓库
         uses: actions/checkout@v3
 
       # 第 2 步：运行 sync 操作
-      - name: Sync upstream changes
+      - name: 同步上游更改
         id: sync
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
         with:
@@ -31,14 +31,14 @@ jobs:
           test_mode: false
 
       # 第 3 步：检查是否同步成功
-      - name: Sync check
+      - name: 检查是否同步成功
         if: failure()
         run: |
           echo "[Error] 由于上游仓库的 workflow 文件变更，导致 GitHub 自动暂停了本次自动更新，你需要手动 Sync Fork 一次，详细教程请查看：https://github.com/Yidadaa/ChatGPT-Next-Web/blob/main/README_CN.md#%E6%89%93%E5%BC%80%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0"
           exit 1
 
       # 第 4 步：添加自己的代码更改
-      - name: Add custom changes
+      - name: 添加自定义更改
         run: |
           # 设置 Git 用户信息
           git config --global user.email "mail@9lf.top"
@@ -93,7 +93,7 @@ jobs:
           git commit -m "与上游同步后添加我的自定义更改"
 
       # 第 5 步：推送更改到自己的远程仓库
-      - name: Push custom changes
+      - name: 推送自定义更改
         run: |
           git push origin main # 确保这是你要推送的分支
         env:

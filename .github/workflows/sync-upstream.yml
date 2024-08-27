@@ -79,7 +79,7 @@ jobs:
           
           # 更改 注入系统提示词
           sed -i 's/Knowledge cutoff: [^ ]*/知识截止: 未知/' app/constant.ts
-          sed -i 's/You are ChatGPT, a large language model trained by OpenAI./你是 ChatGPT，一个由 OpenAI 训练的大型语言模型。/' app/constant.ts
+          sed -i 's/^You are ChatGPT.*/你是 ChatGPT，一个由 OpenAI 训练的大型语言模型./' app/constant.ts
           sed -i 's/Current model/当前模型/' app/constant.ts
           sed -i 's/Current time/当前时间/' app/constant.ts
           

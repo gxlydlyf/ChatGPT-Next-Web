@@ -66,6 +66,14 @@ jobs:
           # 更改 historyMessageCount
           sed -i 's/historyMessageCount: [0-9]\+/historyMessageCount: 64/' app/store/config.ts
           
+          # 更改 主题
+          # light
+          sed -i '/@mixin light/,/}/s/--primary: .*;/--primary: rgb(243, 140, 0);/' app/styles/globals.scss
+          sed -i '/@mixin light/,/}/s/--second: .*;/--second: rgb(255,216,164);/' app/styles/globals.scss
+          # dark
+          sed -i '/@mixin dark/,/}/s/--primary: .*;/--primary: rgb(171, 111, 29);/' app/styles/globals.scss
+          sed -i '/@mixin dark/,/}/s/--second: .*;/--second: rgb(42, 34, 27);/' app/styles/globals.scss
+          
           # 关闭历史摘要
           sed -i 's/sendMemory: true/sendMemory: false/' app/store/config.ts
           

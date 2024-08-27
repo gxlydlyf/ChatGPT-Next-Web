@@ -79,9 +79,14 @@ jobs:
           
           # 更改 注入系统提示词
           sed -i 's/Knowledge cutoff: [^ ]*/知识截止: 未知/' app/constant.ts
-          sed -i 's/^You are ChatGPT.*/你是 ChatGPT，一个由 OpenAI 训练的大型语言模型./' app/constant.ts
+          sed -i 's/You are ChatGPT, a large language model trained by/你是 ChatGPT，一个大型语言模型，训练由：/' app/constant.ts
           sed -i 's/Current model/当前模型/' app/constant.ts
           sed -i 's/Current time/当前时间/' app/constant.ts
+          sed -i 's/Latex inline/Latex行内公式/' app/constant.ts
+          sed -i 's/Latex block/Latex块级公式/' app/constant.ts
+          
+          # 更改 聊天名称生成模型
+          sed -i 's/const SUMMARIZE_MODEL = ".*";/const SUMMARIZE_MODEL = "gpt-4o-mini";/' app/constant.ts
           
           # 始终为最新版本
           sed -i 's/const hasNewVersion = .*;/const hasNewVersion = false;/' app/components/settings.tsx

@@ -220,20 +220,20 @@ export const Iflytek = {
 
 export const DEFAULT_INPUT_TEMPLATE = `{{input}}`; // input / time / model / lang
 // export const DEFAULT_SYSTEM_TEMPLATE = `
-// You are ChatGPT, a large language model trained by {{ServiceProvider}}.
+// 你是 ChatGPT，一个大型语言模型，训练由： {{ServiceProvider}}.
 // 知识截止: 未知
 // 当前模型: {{model}}
 // 当前时间: {{time}}
-// Latex inline: $x^2$
-// Latex block: $$e=mc^2$$
+// Latex行内公式: $x^2$
+// Latex块级公式: $$e=mc^2$$
 // `;
 export const DEFAULT_SYSTEM_TEMPLATE = `
 你是 ChatGPT，一个由 OpenAI 训练的大型语言模型.
 知识截止: 未知
 当前模型: {{model}}
 当前时间: {{time}}
-Latex inline: \\(x^2\\) 
-Latex block: $$e=mc^2$$
+Latex行内公式: \\(x^2\\) 
+Latex块级公式: $$e=mc^2$$
 `;
 
 export const SUMMARIZE_MODEL = "gpt-4o-mini";

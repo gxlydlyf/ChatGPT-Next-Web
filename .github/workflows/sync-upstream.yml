@@ -1,0 +1,80 @@
+name: Upstream Sync
+
+permissions:
+  contents: write
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # 每天
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  sync_latest_from_upstream:
+    name: Sync latest commits from upstream repo
+    runs-on: ubuntu-latest
+    if: ${{ github.event.repository.fork }}
+
+    steps:
+      # 步骤 1：运行标准 checkout 操作
+      - name: Checkout target repo
+        uses: actions/checkout@v3
+
+      # 第 2 步：运行 sync 操作
+      - name: Sync upstream changes
+        id: sync
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        with:
+          upstream_sync_repo: ChatGPTNextWeb/ChatGPT-Next-Web
+          upstream_sync_branch: main
+          target_sync_branch: main
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }} # 自动生成，无需设置
+          test_mode: false
+
+      # 第 3 步：检查是否同步成功
+      - name: Sync check
+        if: failure()
+        run: |
+          echo "[Error] 由于上游仓库的 workflow 文件变更，导致 GitHub 自动暂停了本次自动更新，你需要手动 Sync Fork 一次，详细教程请查看：https://github.com/Yidadaa/ChatGPT-Next-Web/blob/main/README_CN.md#%E6%89%93%E5%BC%80%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0"
+          exit 1
+
+      # 第 4 步：添加自己的代码更改
+      - name: Add custom changes
+        run: |
+          # 在这里添加你的代码更改，比如创建一个新文件或修改现有文件
+          # 更改CSS
+          echo "
+          div, button, select, a, input, span {
+            -webkit-tap-highlight-color: transparent;
+          }" >> app/styles/globals.scss
+          
+          # 更改 子标题
+          sed -i 's/Build your own AI assistant./免费 GPT-4o-mini 聊天机器人/g' app/components/sidebar.tsx
+          
+          # 更改 默认api
+          sed -i 's|/api/openai/|https://api.9lf.top/|g' app/store/access.ts
+                    
+          # 更改 默认模型
+          sed -i 's/model: ".*"/model: "gpt-4o-mini"/' app/store/config.ts
+          
+          # 更改 max_tokens
+          sed -i 's/max_tokens: [0-9]\+/max_tokens: 1280000/' app/store/config.ts
+          sed -i 's/compressMessageLengthThreshold: [0-9]\+/compressMessageLengthThreshold: 1280000/' app/store/config.ts
+          
+          # 更改 historyMessageCount
+          sed -i 's/historyMessageCount: [0-9]\+/historyMessageCount: 64/' app/store/config.ts
+          
+          # 关闭历史摘要
+          sed -i 's/sendMemory: true/sendMemory: false/' app/store/config.ts
+          
+          # 添加所有更改
+          git add *
+          
+          # 提交更改
+          git commit -m "与上游同步后添加我的自定义更改"
+
+      # 第 5 步：推送更改到自己的远程仓库
+      - name: Push custom changes
+        run: |
+          git push origin main # 确保这是你要推送的分支
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 提供的 token

@@ -1,4 +1,4 @@
-name: Upstream Sync
+name: 上游同步
 
 permissions:
   contents: write

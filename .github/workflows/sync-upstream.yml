@@ -55,6 +55,7 @@ jobs:
           
           # 更改 默认api
           sed -i 's|/api/openai/|https://api.9lf.top/|g' app/store/access.ts
+          sed -i 's|/api/openai|https://api.9lf.top|g' app/constant.ts
                     
           # 更改 默认模型
           sed -i 's/model: ".*"/model: "gpt-4o-mini"/' app/store/config.ts

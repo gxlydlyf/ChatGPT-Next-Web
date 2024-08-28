@@ -228,7 +228,7 @@ export const DEFAULT_INPUT_TEMPLATE = `{{input}}`; // input / time / model / lan
 // Latex块级公式: $$e=mc^2$$
 // `;
 export const DEFAULT_SYSTEM_TEMPLATE = `
-你是 ChatGPT，一个由 OpenAI 训练的大型语言模型.
+你是 ChatGPT，一个大型语言模型，训练由： {{ServiceProvider}}.
 知识截止: 未知
 当前模型: {{model}}
 当前时间: {{time}}
